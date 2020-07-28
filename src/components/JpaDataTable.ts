@@ -1,29 +1,17 @@
-import Vue, {CreateElement, VNode, VNodeData} from 'vue';
+import Vue, {CreateElement, VNodeData} from 'vue';
 import {VDataTable} from "vuetify/lib";
 import Component from 'vue-class-component'
 import {Prop} from "vue-property-decorator";
-import {AntiqueClient} from "@/client/AntiqueClient";
-import {AntiqueObj} from "@/model/test/Antique";
 import HeaderMapFromObject from "@/func/HeaderMapFromObject";
-import { Header } from '@/model/Header';
-import {
-    DataTableHeader,
-    DataTableFilterFunction,
-    DataScopeProps,
-    DataOptions,
-    DataPagination,
-    DataTableCompareFunction,
-    DataItemsPerPageOption,
-    ItemGroup,
-    RowClassFunction,
-    DataTableItemProps,
-} from 'vuetify/types'
+import {Header} from '@/model/Header';
+import {DataOptions,} from 'vuetify/types'
 import {PageRequest} from "@/model/PageRequest";
-import { Page } from '@/model/Page';
+import {Page} from '@/model/Page';
 import {ScopedSlot} from "vue/types/vnode";
 import TableSortArrayToSort from "@/func/TableSortArrayToSort";
 import {TableItem} from "@/model/TableItem";
 import TableItemDataFromObject from "@/func/TableItemDataFromObject";
+
 @Component
 export default class<T> extends Vue {
     @Prop() readonly repo: JpaDataRepository<T> | undefined
@@ -52,7 +40,6 @@ export default class<T> extends Vue {
         }
         for(const thisProps in this.$props.dataTableProps){
             if(dataObject.props != undefined) {
-
                 dataObject.props[thisProps] = this.$props.dataTableProps[thisProps]
             }
         }
