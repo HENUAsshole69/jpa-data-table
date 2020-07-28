@@ -52,6 +52,7 @@ export default class<T> extends Vue {
         }
         for(const thisProps in this.$props.dataTableProps){
             if(dataObject.props != undefined) {
+
                 dataObject.props[thisProps] = this.$props.dataTableProps[thisProps]
             }
         }
