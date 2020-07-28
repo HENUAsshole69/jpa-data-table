@@ -12,7 +12,6 @@ export default function (sortArr: string[],isDescArr: boolean[]) {
     const sort: Sort = {orders: []}
     sortObjArr.forEach(function (value, index, array) {
         sort.orders.push({direction: value.desc?"DESC":"ASC",
-            ignoreCase: false,
             nullHandling: "NATIVE",
             property: value.col})
     })

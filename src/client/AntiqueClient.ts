@@ -1,6 +1,7 @@
 import {Antique, AntiqueDto, AntiqueObj, WearAndTear} from '@/model/test/Antique';
 import AxiosInstance from "./AxiosInstance";
 import {Page} from "@/model/Page";
+import {PageRequest, Sort} from '@/model/PageRequest';
 
 
 export class AntiqueClient{
@@ -21,6 +22,17 @@ export class AntiqueClient{
         res.content.push(...arr)
         return res
     }
+
+    static async getAntiqueSorted(pageRequest: PageRequest): Promise<Page<Antique>>{
+        const res =  (await AxiosInstance.post('/antique/page',pageRequest)).data
+        const arr = res.content.map(function (value: Antique, index: any, array: any) {
+            return new AntiqueObj(value)
+        })
+        res.content.length=0
+        res.content.push(...arr)
+        return res
+    }
+
     static async getAntiquePic(id: number): Promise<string>{
         return AxiosInstance.get('/antique/pic/'+id,{ responseType: 'arraybuffer' }).then((response) => {
             const image = btoa(

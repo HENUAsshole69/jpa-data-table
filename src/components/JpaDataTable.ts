@@ -27,6 +27,7 @@ import TableItemDataFromObject from "@/func/TableItemDataFromObject";
 @Component
 export default class<T> extends Vue {
     @Prop() readonly repo: JpaDataRepository<T> | undefined
+    @Prop() readonly dataTableProps: object | undefined
     private items: T[] = []
     private headers: Header[] = []
     private totalLength = 0
@@ -49,8 +50,11 @@ export default class<T> extends Vue {
             },
             scopedSlots: this.slots
         }
-        for(const thisProps in this.$props){
-            if(dataObject.props != undefined) dataObject.props[thisProps] = this.$props[thisProps]
+        for(const thisProps in this.$props.dataTableProps){
+            if(dataObject.props != undefined) {
+                console.log(thisProps)
+                dataObject.props[thisProps] = this.$props.dataTableProps[thisProps]
+            }
         }
         return createElement(VDataTable,dataObject,[])
     }

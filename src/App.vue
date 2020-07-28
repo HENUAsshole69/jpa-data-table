@@ -38,11 +38,13 @@
     </v-app-bar>
 
     <v-main>
-      <functional-jpa-data-table :repo="repo" >
+      <jpa-data-table :repo="repo" :data-table-props="{
+        'multi-sort':true
+      }" >
         <template v-slot:footer.page-text="{pageStart,pageStop,itemsLength}">
             {{pageStart+' '+pageStop+' '+itemsLength}}
         </template>
-      </functional-jpa-data-table>
+      </jpa-data-table>
     </v-main>
   </v-app>
 </template>
@@ -51,14 +53,13 @@
 import Vue from 'vue';
 import HelloWorld from './components/HelloWorld.vue';
 import AntiqueRepo from '@/model/test/AntiqueRepo';
-import JpaDataTable from "@/components/JpaDataTable.vue";
-import FunctionalJpaDataTable from "@/components/FunctionalJpaDataTable.ts";
+import JpaDataTable from "@/components/JpaDataTable.ts";
 
 export default Vue.extend({
   name: 'App',
 
   components: {
-    FunctionalJpaDataTable
+    JpaDataTable
   },
 
   data: () => ({

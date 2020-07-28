@@ -26,7 +26,6 @@ export type Direction = 'ASC' | 'DESC'
 export interface Order {
     direction: Direction;
     property: string;
-    ignoreCase: boolean;
     nullHandling: NullHandling;
 }
 

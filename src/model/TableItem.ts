@@ -1,4 +1,4 @@
-import {JpaDataRepository} from "@/components/FunctionalJpaDataTable";
+import {JpaDataRepository} from "@/components/JpaDataTable";
 import {Header} from "@/model/Header";
 import {ExtendedVue} from "vue/types/vue";
 
