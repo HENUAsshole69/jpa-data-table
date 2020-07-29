@@ -1,6 +1,7 @@
-import  "reflect-metadata";
+import "reflect-metadata";
 
-import {Header as IHeader} from '@/model/Header'
+import {Header as IHeader} from '../model/Header'
+
 export const headerMetadataKey = Symbol("Header");
 
 export function Header(headerObj: IHeader) {

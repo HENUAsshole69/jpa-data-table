@@ -2,15 +2,15 @@ import Vue, {CreateElement, VNodeData, VueConstructor} from 'vue';
 import {VDataTable} from "vuetify/lib";
 import Component from 'vue-class-component'
 import {Prop} from "vue-property-decorator";
-import HeaderMapFromObject from "@/func/HeaderMapFromObject";
-import {Header} from '@/model/Header';
+import HeaderMapFromObject from "../func/HeaderMapFromObject";
+import {Header} from '../model/Header';
 import {DataOptions,} from 'vuetify/types'
-import {PageRequest} from "@/model/PageRequest";
-import {Page} from '@/model/Page';
+import {PageRequest} from "../model/PageRequest";
+import {Page} from '../model/Page';
 import {ScopedSlot} from "vue/types/vnode";
-import TableSortArrayToSort from "@/func/TableSortArrayToSort";
-import {TableItem} from "@/model/TableItem";
-import TableItemDataFromObject from "@/func/TableItemDataFromObject";
+import TableSortArrayToSort from "../func/TableSortArrayToSort";
+import {TableItem} from "../model/TableItem";
+import TableItemDataFromObject from "../func/TableItemDataFromObject";
 
 @Component
 export default class<T> extends Vue {
@@ -19,7 +19,7 @@ export default class<T> extends Vue {
     private items: T[] = []
     private headers: Header[] = []
     private totalLength = 0
-    private showExpand=false
+    private showExpand = false
     private decoratorMap: Map<string, Header> = new Map<string, Header>()
     private slots: { [key: string]: (ScopedSlot | undefined) } = {}
     render(createElement: CreateElement) {
