@@ -50,20 +50,19 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import HelloWorld from './components/HelloWorld.vue';
-import AntiqueRepo from '@/model/test/AntiqueRepo';
-import JpaDataTable from "@/components/JpaDataTable.ts";
+  import Vue from 'vue';
+  import AntiqueRepo from '@/model/test/AntiqueRepo';
+  import JpaDataTable from "@/components/JpaDataTable.ts";
 
-export default Vue.extend({
-  name: 'App',
+  export default Vue.extend({
+    name: 'App',
 
-  components: {
-    JpaDataTable
-  },
+    components: {
+      JpaDataTable
+    },
 
-  data: () => ({
-    repo: new AntiqueRepo()
-  }),
-});
+    data: () => ({
+      repo: new AntiqueRepo()
+    }),
+  });
 </script>

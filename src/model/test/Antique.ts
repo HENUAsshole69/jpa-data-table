@@ -1,9 +1,8 @@
-import { VerificationProcess } from "./Verification";
-import { User } from './User';
+import {VerificationProcess} from "./Verification";
+import {User} from './User';
 import {Header} from "@/decorator/HeaderDecorator";
 import TestSlot from "@/components/TestSlot.vue";
 import {TableItem} from "@/decorator/TableItemDecorator";
-import AntiqueRepo from "@/model/test/AntiqueRepo";
 
 export interface Antique {
     id: number | null;
@@ -34,23 +33,25 @@ export interface WearAndTear {
     id: number;
 }
 
-@TableItem({expandable:true,
-    additionalHeaders: [{text: '大苏打'}]})
+@TableItem({
+    expandable: true,
+    additionalHeaders: [{text: '大苏打', order: 0}]
+})
 export class AntiqueObj implements Antique {
-    @Header({text: "描述"})
+    @Header({text: "描述", order: 1})
     desp: string | null;
-    @Header({text: "序号"})
+    @Header({text: "序号", order: 2})
     id: number | null;
-    @Header({text: "名称"})
+    @Header({text: "名称", order: 3})
     name: string;
-    @Header({text: "图片"})
+    @Header({text: "图片", order: 4})
     pic: string;
-    @Header({text: "类型"})
+    @Header({text: "类型", order: 5})
     type: AntiqueType;
-    @Header({text: "用户"})
+    @Header({text: "用户", order: 6})
     user: User;
     verificationProcesses: VerificationProcess[];
-    @Header({text: "磨损",view: TestSlot})
+    @Header({text: "磨损", view: TestSlot, order: 7})
     wearAndTear: WearAndTear | null;
     constructor(antique: Antique) {
         this.desp = antique.desp;

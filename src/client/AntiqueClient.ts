@@ -1,7 +1,7 @@
 import {Antique, AntiqueDto, AntiqueObj, WearAndTear} from '@/model/test/Antique';
 import AxiosInstance from "./AxiosInstance";
 import {Page} from "@/model/Page";
-import {PageRequest, Sort} from '@/model/PageRequest';
+import {PageRequest} from '@/model/PageRequest';
 
 
 export class AntiqueClient{
@@ -14,8 +14,8 @@ export class AntiqueClient{
     }
 
     static async getAntique(pageNo: number,pageLen: number): Promise<Page<Antique>>{
-        const res =  (await AxiosInstance.get('/antique/page/'+pageNo+'/'+pageLen)).data
-        const arr = res.content.map(function (value: Antique, index: any, array: any) {
+        const res = (await AxiosInstance.get('/antique/page/' + pageNo + '/' + pageLen)).data
+        const arr = res.content.map(function (value: Antique) {
             return new AntiqueObj(value)
         })
         res.content.length=0
@@ -24,8 +24,8 @@ export class AntiqueClient{
     }
 
     static async getAntiqueSorted(pageRequest: PageRequest): Promise<Page<Antique>>{
-        const res =  (await AxiosInstance.post('/antique/page',pageRequest)).data
-        const arr = res.content.map(function (value: Antique, index: any, array: any) {
+        const res = (await AxiosInstance.post('/antique/page', pageRequest)).data
+        const arr = res.content.map(function (value: Antique) {
             return new AntiqueObj(value)
         })
         res.content.length=0

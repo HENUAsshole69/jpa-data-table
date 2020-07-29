@@ -11,6 +11,7 @@ import {ScopedSlot} from "vue/types/vnode";
 import TableSortArrayToSort from "@/func/TableSortArrayToSort";
 import {TableItem} from "@/model/TableItem";
 import TableItemDataFromObject from "@/func/TableItemDataFromObject";
+import {ExtendedVue} from "vue/types/vue";
 
 @Component
 export default class<T> extends Vue {
@@ -20,8 +21,8 @@ export default class<T> extends Vue {
     private headers: Header[] = []
     private totalLength = 0
     private showExpand=false
-    private decoratorMap: Map<string,Header> = new Map<string, Header>()
-    private slots: {[key: string]: ScopedSlot | undefined} = {}
+    private decoratorMap: Map<string, Header> = new Map<string, Header>()
+    private slots: { [key: string]: (ScopedSlot | undefined) } = {}
     render(createElement: CreateElement) {
         for(const thisSlots in this.$scopedSlots){
             this.slots[thisSlots] = this.$scopedSlots[thisSlots]
@@ -60,28 +61,35 @@ export default class<T> extends Vue {
             this.$emit('loaded')
         }
     }
-    private loadTableItemData(createElement: CreateElement){
+    private loadTableItemData(createElement: CreateElement) {
         const tableItem: TableItem = TableItemDataFromObject(this.items[0])
         this.showExpand = tableItem.expandable ?? false
         this.headers.push(...(tableItem.additionalHeaders ?? []))
         // eslint-disable-next-line @typescript-eslint/no-this-alias
         const model = this;
-        tableItem.additionalHeaders?.forEach(function (value, index, array) {
-            model.slots['item.'+index]= function (props) {
-                return createElement(value.view, {
-                    props: {
-                        slotData: props
-                    }
-                })
+        tableItem.additionalHeaders?.forEach(function (value, index) {
+            if (typeof value.view !== 'function') {
+                model.slots['item.' + index] = function (props: any) {
+                    return createElement(value.view as ExtendedVue<any, any, any, any, any>, {
+                        props: {
+                            slotData: props
+                        }
+                    })
+                }
+            } else {
+                return (value.view as (createElement: CreateElement) => ScopedSlot)(createElement)
             }
         });
-        this.slots['expanded-item'] = function (props) {
+        this.slots['expanded-item'] = function (props: any) {
             return createElement(tableItem.expandedView, {
                 props: {
                     slotData: props
                 }
             })
         }
+        model.headers.sort(function (a: Header, b: Header) {
+            return a.order >= b.order ? 1 : -1
+        })
     }
     private loadHeader(){
         this.headers.length = 0
@@ -89,7 +97,7 @@ export default class<T> extends Vue {
         // eslint-disable-next-line @typescript-eslint/no-this-alias
         const model = this;
         this.decoratorMap = map
-        map.forEach(function (value, key, map) {
+        map.forEach(function (value, key,) {
             value.value = key
             model.headers.push(value)
         })
@@ -99,14 +107,18 @@ export default class<T> extends Vue {
         const model = this
         model.slots = {}
 
-        this.decoratorMap.forEach(function (value, key, _) {
-            if(value.view !== undefined) {
-                model.slots['item.'+key]= function (props) {
-                    return createElement(value.view, {
-                        props: {
-                            slotData: props
-                        }
-                    })
+        this.decoratorMap.forEach(function (value, key) {
+            if (value.view !== undefined) {
+                if (typeof value.view !== 'function') {
+                    model.slots['item.' + key] = function (props: any) {
+                        return createElement(value.view as ExtendedVue<any, any, any, any, any>, {
+                            props: {
+                                slotData: props
+                            }
+                        })
+                    }
+                } else {
+                    return (value.view as (createElement: CreateElement) => ScopedSlot)(createElement)
                 }
             }
         })
