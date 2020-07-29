@@ -1,5 +1,4 @@
-import {CreateElement} from 'vue'
-import {ExtendedVue} from "vue/types/vue";
+import {CreateElement, VueConstructor} from 'vue'
 import {ScopedSlot} from "vue/types/vnode";
 
 export interface Header {
@@ -15,5 +14,5 @@ export interface Header {
     width?: string | number
     filter?: (value: any, search: string, item: any) => boolean
     sort?: (a: any, b: any) => number,
-    view?: ExtendedVue<any, any, any, any, any> | ((createElement: CreateElement) => ScopedSlot)
+    view?: VueConstructor | ((createElement: CreateElement) => ScopedSlot)
 }

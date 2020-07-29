@@ -1,4 +1,4 @@
-import Vue, {CreateElement, VNodeData} from 'vue';
+import Vue, {CreateElement, VNodeData, VueConstructor} from 'vue';
 import {VDataTable} from "vuetify/lib";
 import Component from 'vue-class-component'
 import {Prop} from "vue-property-decorator";
@@ -11,7 +11,6 @@ import {ScopedSlot} from "vue/types/vnode";
 import TableSortArrayToSort from "@/func/TableSortArrayToSort";
 import {TableItem} from "@/model/TableItem";
 import TableItemDataFromObject from "@/func/TableItemDataFromObject";
-import {ExtendedVue} from "vue/types/vue";
 
 @Component
 export default class<T> extends Vue {
@@ -68,16 +67,18 @@ export default class<T> extends Vue {
         // eslint-disable-next-line @typescript-eslint/no-this-alias
         const model = this;
         tableItem.additionalHeaders?.forEach(function (value, index) {
-            if (typeof value.view !== 'function') {
-                model.slots['item.' + index] = function (props: any) {
-                    return createElement(value.view as ExtendedVue<any, any, any, any, any>, {
-                        props: {
-                            slotData: props
-                        }
-                    })
+            if (value.view !== undefined) {
+                if (value.view.prototype instanceof Vue) {
+                    model.slots['item.' + value.value] = function (props: any) {
+                        return createElement(value.view as VueConstructor, {
+                            props: {
+                                slotData: props
+                            }
+                        })
+                    }
+                } else {
+                    return (value.view as (createElement: CreateElement) => ScopedSlot)(createElement)
                 }
-            } else {
-                return (value.view as (createElement: CreateElement) => ScopedSlot)(createElement)
             }
         });
         this.slots['expanded-item'] = function (props: any) {
@@ -107,11 +108,11 @@ export default class<T> extends Vue {
         const model = this
         model.slots = {}
 
-        this.decoratorMap.forEach(function (value, key) {
+        this.decoratorMap.forEach(function (value, index) {
             if (value.view !== undefined) {
-                if (typeof value.view !== 'function') {
-                    model.slots['item.' + key] = function (props: any) {
-                        return createElement(value.view as ExtendedVue<any, any, any, any, any>, {
+                if (value.view.prototype instanceof Vue) {
+                    model.slots['item.' + index] = function (props: any) {
+                        return createElement(value.view as VueConstructor, {
                             props: {
                                 slotData: props
                             }
