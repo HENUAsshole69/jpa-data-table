@@ -1,4 +1,4 @@
-import {Sort} from "@/model/PageRequest";
+import {Sort} from "../model/PageRequest";
 
 
 export default function (sortArr: string[],isDescArr: boolean[]) {
