@@ -1,8 +1,8 @@
 import {VerificationProcess} from "./Verification";
 import {User} from './User';
-import {Header} from "@/decorator/HeaderDecorator";
-import TestSlot from "@/components/TestSlot.vue";
-import {TableItem} from "@/decorator/TableItemDecorator";
+import {Header} from "../../../src/decorator/HeaderDecorator";
+import TestSlot from "../../component/TestSlot.vue";
+import {TableItem} from "../../../src/decorator/TableItemDecorator";
 
 export interface Antique {
     id: number | null;

@@ -1,16 +1,16 @@
-import {Antique, AntiqueDto, AntiqueObj, WearAndTear} from '@/model/test/Antique';
+import {Antique, AntiqueDto, AntiqueObj, WearAndTear} from '../model/test/Antique';
 import AxiosInstance from "./AxiosInstance";
-import {Page} from "@/model/Page";
-import {PageRequest} from '@/model/PageRequest';
+import {Page} from "../../src/model/Page";
+import {PageRequest} from '../../src/model/PageRequest';
 
 
-export class AntiqueClient{
-    static postAntique(antique: AntiqueDto){
-        return AxiosInstance.post('/antique',antique,{})
+export class AntiqueClient {
+    static postAntique(antique: AntiqueDto) {
+        return AxiosInstance.post('/antique', antique, {})
     }
 
-    static postAntiqueCert(id: number,certB64: string){
-        return AxiosInstance.post('/antique/cert/'+id,certB64,{})
+    static postAntiqueCert(id: number, certB64: string) {
+        return AxiosInstance.post('/antique/cert/' + id, certB64, {})
     }
 
     static async getAntique(pageNo: number,pageLen: number): Promise<Page<Antique>>{

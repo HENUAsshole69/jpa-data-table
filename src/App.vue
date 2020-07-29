@@ -51,7 +51,7 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import AntiqueRepo from '@/model/test/AntiqueRepo';
+  import AntiqueRepo from '@/../dev/model/test/AntiqueRepo';
   import JpaDataTable from "@/components/JpaDataTable.ts";
 
   export default Vue.extend({

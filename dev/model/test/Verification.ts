@@ -1,4 +1,4 @@
-import {User} from "@/model/test/User";
+import {User} from "./User";
 
 export type VerificationProcessStage = "STAGE_ONE" | "STAGE_TWO" | "STAGE_THREE";
 
