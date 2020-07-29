@@ -35,7 +35,15 @@ export interface WearAndTear {
 
 @TableItem({
     expandable: true,
-    additionalHeaders: [{text: '大苏打', order: 0}]
+    additionalHeaders: [{text: '大苏打', order: 0}, {
+        text: "磨损", value: 'wearAndTear', view: (createElement) => function (props: any) {
+            return createElement(TestSlot, {
+                props: {
+                    slotData: props
+                }
+            })
+        }, order: 7
+    }]
 })
 export class AntiqueObj implements Antique {
     @Header({text: "描述", order: 1})
@@ -51,7 +59,6 @@ export class AntiqueObj implements Antique {
     @Header({text: "用户", order: 6})
     user: User;
     verificationProcesses: VerificationProcess[];
-    @Header({text: "磨损", view: TestSlot, order: 7})
     wearAndTear: WearAndTear | null;
     constructor(antique: Antique) {
         this.desp = antique.desp;

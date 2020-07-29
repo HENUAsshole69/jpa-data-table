@@ -77,7 +77,8 @@ export default class<T> extends Vue {
                         })
                     }
                 } else {
-                    return (value.view as (createElement: CreateElement) => ScopedSlot)(createElement)
+
+                    model.slots['item.' + value.value] = (value.view as (createElement: CreateElement) => ScopedSlot)(createElement)
                 }
             }
         });
@@ -119,7 +120,7 @@ export default class<T> extends Vue {
                         })
                     }
                 } else {
-                    return (value.view as (createElement: CreateElement) => ScopedSlot)(createElement)
+                    model.slots['item.' + index] = (value.view as (createElement: CreateElement) => ScopedSlot)(createElement)
                 }
             }
         })
