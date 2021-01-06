@@ -15,7 +15,7 @@
     "build-bundle": "vue-cli-service build --target lib --name jpa-data-table ./src/components/JpaDataTable.ts"
   },
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "core-js": "^3.6.5",
     "reflect-metadata": "^0.1.13",
     "vue": "^2.6.11",
